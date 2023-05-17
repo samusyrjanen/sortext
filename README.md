@@ -5,3 +5,7 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 ## Documents
 
 [Specification](docs/specification.md)
+
+## Made By
+
+Samu Syrjänen
