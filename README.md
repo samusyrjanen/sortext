@@ -4,7 +4,8 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ## Documents
 
-[Specification](docs/specification.md)
+[Specification](docs/specification.md)  
+[Week Report 1](docs/week_report_1.md)  
 
 ## Made By
 
