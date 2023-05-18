@@ -9,4 +9,5 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ## Made By
 
-Samu Syrjänen
+Samu Syrjänen  
+[License](LICENSE)
