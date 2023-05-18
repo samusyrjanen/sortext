@@ -22,6 +22,6 @@ At the start of this week, I began exploring the possibility to use an easier, k
 After couple days of research, I felt confident enough that I could learn the necessary skills to carry out my planned topic. In wednesday afternoon I wrote the specifications about the project, and joined the course's Labtool page. At this point, the [specification.md](docs/specification.md) is a good summary of my learning.
 
 ### Thursday 18.5.
-
+- 3 h
 
 In thursday morning I began writing this document, reflecting what I had done in the passed days. At this point almost everything is ready to start the actual creation of the app. The first thing I will start by is creating a good environment for the codebase and plan the structure and order, by which I will start the development.
