@@ -37,7 +37,6 @@ Note that the result from TF-IDF can be saved for later use.
 The space complexity of TF-IDF:
 - Document-Term Matrix: The TF-IDF algorithm starts by constructing a Document-Term Matrix or a similar data structure that represents the frequency of each word in each document. The space required to store this matrix depends on the number of unique words and the number of documents. If there are N unique words and M documents, the space complexity of the matrix is O(N * M).
 - Inverse Document Frequency: The IDF component of TF-IDF involves calculating the inverse document frequency for each word. This requires storing the IDF value for each word in a data structure. The space required for the IDF values depends on the number of unique words, so it is O(N).
-- Normalizing word weights: The word weights within each document are also normalized. This requires storing the normalized word weights, which adds an additional space complexity of O(N * M).
 
 The time complexity of k-means algorithm is O(n * k * d * i), where:
 - n is number of documents
