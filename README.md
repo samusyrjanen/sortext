@@ -10,7 +10,7 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 ## Requirements
 
 - Python 3.10 or newer
-- poetry
+- Poetry
 
 ## Installation
 
