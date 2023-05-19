@@ -8,6 +8,8 @@
 
 I began planning my topic a week before the official course start. I wanted to make an app that could analyze text based content at least somewhat intelligently. First, I explored the idea of making the app categorize a news article into negative, neutral, or positive category based on its sentiment. For this task I would have used a support vector machine (SVM) algorithm. However, SVM turned out to be more complex than I anticipated, and I decided to think of a slightly new topic.
 
+## This week
+
 ### Monday 15.5.
 - 5 h
 
