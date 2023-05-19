@@ -17,7 +17,7 @@ Here is a list of the needed functionalities:
 
 - Get training data: The data can be anything, as long as it is text, and its guality is similar to the user input data. For example, I use news articles.
 - Get user input.
-- Preprocess the text data: This involves cleaning the text, removing punctuation, converting to lowercase, removing stop words, lemmatizing or stemming the words reducing them to their base form, and performing any other necessary preprocessing steps.
+- Preprocess the text data: This involves cleaning the text, removing punctuation, converting to lowercase, removing stop words, stemming the words reducing them to their base form, and performing any other necessary preprocessing steps.
 - Convert the preprocessed text data into a term-document matrix: This matrix represents the frequency of each word in each document. Each row represents a document, and each column represents a word.
 - Create a TF-IDF matrix: TF-IDF (Term Frequency-Inverse Document Frequency) is a technique that assigns weights to terms based on their importance in the corpus. The resulting matrix gives more weight to terms that are rare but important in a document.
 - Apply normalization to the TF-IDF matrix to avoid the dominating effect of terms that are rare in other documents.
