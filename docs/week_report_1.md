@@ -25,3 +25,8 @@ After couple days of research, I felt confident enough that I could learn the ne
 - 3 h
 
 In thursday morning I began writing this document, reflecting what I had done in the passed days. At this point almost everything is ready to start the actual creation of the app. The first thing I will start by is creating a good environment for the codebase and plan the structure and order, by which I will start the development.
+
+### Friday 19.5.
+- 5 h
+
+I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form.

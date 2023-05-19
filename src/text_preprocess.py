@@ -9,12 +9,12 @@ class TextPreprocess:
         self.stopwords = set(nltk.corpus.stopwords.words('english'))
         self.stemmer = nltk.stem.PorterStemmer()
 
-    def preprocess(self):#+ delete words with less than 3 letters
+    def preprocess(self):
         self.to_lower_case()
         self.remove_punctuation()
         self.numbers_to_num()
         self.split_words()
-        self.remove_short()
+        self.remove_short_long()
         self.stem()
 
     def to_lower_case(self):
@@ -30,7 +30,7 @@ class TextPreprocess:
     def split_words(self):
         self.texts = [[word for word in text.split() if word not in self.stopwords] for text in self.texts]
 
-    def remove_short(self):
+    def remove_short_long(self):
         self.texts = [[word for word in text if 2 < len(word) < 21] for text in self.texts]
 
     def stem(self):
