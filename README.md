@@ -7,6 +7,11 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 [Specification](docs/specification.md)  
 [Week Report 1](docs/week_report_1.md)  
 
+## Requirements
+
+- Python 3.10 or newer
+- poetry
+
 ## Installation
 
 - Clone the repository.

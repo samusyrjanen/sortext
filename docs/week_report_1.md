@@ -29,4 +29,4 @@ In thursday morning I began writing this document, reflecting what I had done in
 ### Friday 19.5.
 - 5 h
 
-I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form. Tests are also done, and the installation and testing is documented in [README](../README.md).
+I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form. Tests are also done, and the requirements, installation, and testing are documented in [README](../README.md).
