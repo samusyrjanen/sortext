@@ -21,7 +21,7 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 ## Testing
 
 Sortext uses pytest for unit testing.  
-Run the tests:  
+- Run the tests:  
 `poetry run pytest src`  
 
 ## Made By
