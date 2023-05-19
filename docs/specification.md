@@ -9,7 +9,9 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ## Algorithms and Data Structures
 
-The app uses TF-IDF, term-document matrices, LSI technique, and K-means clustering. Potential other algorithm to add is agglomerative clustering. I chose these algorithms because I am interested in natural language processing, and these algorithms are widely used. I had to select a slightly different topic as I had planned, because the original topic would have been overly hard and time consuming considering the amount of work that is planned for the course. The current topic could also be rather time consuming, since I have no previous experience with these algorithms.
+The app uses TF-IDF, term-document matrices, LSI technique, and K-means clustering. Potential other algorithm to add is agglomerative clustering.  
+
+I chose these algorithms because I am interested in natural language processing, and these algorithms are widely used. I had to select a slightly different topic as I had planned, because the original topic would have been overly hard and time consuming considering the amount of work that is planned for the course. The current topic could also be rather time consuming, since I have no previous experience with these algorithms.
 
 ## How Does It Work?
 
