@@ -19,7 +19,7 @@ At the start of this week, I began exploring the possibility to use an easier, k
 ### Wednesday 17.5.
 - 9 h
 
-After couple days of research, I felt confident enough that I could learn the necessary skills to carry out my planned topic. In wednesday afternoon I wrote the specifications about the project, and joined the course's Labtool page. At this point, the [specification.md](docs/specification.md) is a good summary of my learning.
+After couple days of research, I felt confident enough that I could learn the necessary skills to carry out my planned topic. In wednesday afternoon I wrote the specifications about the project, and joined the course's Labtool page. At this point, the [specification.md](specification.md) is a good summary of my learning.
 
 ### Thursday 18.5.
 - 3 h
@@ -29,4 +29,4 @@ In thursday morning I began writing this document, reflecting what I had done in
 ### Friday 19.5.
 - 5 h
 
-I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form.
+I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form. Tests are also done, and the installation and testing is documented in [README](../README.md).
