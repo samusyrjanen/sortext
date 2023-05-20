@@ -4,6 +4,23 @@ import nltk
 nltk.download('stopwords')
 
 class TextPreprocess:
+    '''
+    Preprocesses the text data.
+
+    Attributes:
+        texts (list): A list of strings, each string being a text document.
+
+    Methods:
+        preprocess(): preprocesses the texts applying all the preprocessing functions.
+        to_lower_case()
+        remove_punctuation()
+        numbers_to_num(): changes each number into a 'num'-string.
+        split_words(): splits the text documents into a list of words.
+        remove_short_long(): removes words with less than 3 of more that 20 characters.
+        stem(): stemmes the words into their base form removing any conjugations. Also joins the word lists back into a string.
+        get_texts(): returns the texts (list).
+    '''
+
     def __init__(self, texts: list):
         self.texts = texts
         self.stopwords = set(nltk.corpus.stopwords.words('english'))
