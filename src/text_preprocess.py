@@ -38,8 +38,11 @@ class TextPreprocess:
         self.texts = [text.lower() for text in self.texts]
 
     def remove_punctuation(self):
-        table = str.maketrans('', '', string.punctuation)
-        self.texts = [text.translate(table) for text in self.texts]
+        replace_chars = {"\n": " ", "\'": " ", "\\": " ", "\r": " ", "\t": " ", "\b": " ", "\f": " "}
+        slash_table = str.maketrans(replace_chars)
+        punctuation_table = str.maketrans('', '', string.punctuation)
+
+        self.texts = [text.translate(slash_table).translate(punctuation_table) for text in self.texts]
 
     def numbers_to_num(self):
         self.texts = [re.sub(r'\d+', 'num', text) for text in self.texts]

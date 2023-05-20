@@ -34,6 +34,6 @@ In thursday morning I began writing this document, reflecting what I had done in
 I created a text preprocessing file, which I will be running before TF-IDF. The preprocessing modifies text in the following way: all letters are lower case, remove punctuation, numbers are turned into 'num'-strings, remove words with less than 3 or more than 20 characters, words are stemmed into their base form. Tests are also done, and the requirements, installation, and testing are documented in [README](../README.md).
 
 ### Saturday 20.5.
+- 6 h
 
-
-Today I started by creating invoke tasks for the commonly used commands. I also added linting and coverage report for the tests, and documented them.
+Today I started by creating invoke tasks for the commonly used commands. I also added linting and coverage report for the tests, and documented them. Created dataset.py that reads the dataset into a list, and added tests for it. I found a good dataset of over 2000 BBC articles, and added it to datasets folder. The copyright and license can be found in [README](../README.md). The user can also add their own datasets into "datasets" folder. The functionality for selecting a dataset will be made later.

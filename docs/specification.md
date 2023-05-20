@@ -56,6 +56,7 @@ If, despite all the efforts to minimize the app's running time it still takes to
 - [An introduction to statistical learning : with applications in R, by James, Gareth (Gareth Michael), author.; Witten, Daniela, author.;Hastie, Trevor, author.;Tibshirani, Robert, author.](https://helka.helsinki.fi/permalink/358UOH_INST/1rnip4l/alma9934192676106253)
 - [https://www.cs.helsinki.fi/group/dime/lado/k06/exerc/ex1.html](https://www.cs.helsinki.fi/group/dime/lado/k06/exerc/ex1.html)
 - [TF-IDF time complexity](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4958984/)
+- [Training Data](https://www.kaggle.com/datasets/shivamkushwaha/bbc-full-text-document-classification)
 
 ## Curriculum
 

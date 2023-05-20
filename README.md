@@ -39,6 +39,18 @@ Sortext uses pytest for unit testing, and pylint for linting.
 - Run the linter:  
 `poetry run invoke lint`
 
+## Training Data
+
+[https://www.kaggle.com/datasets/shivamkushwaha/bbc-full-text-document-classification](https://www.kaggle.com/datasets/shivamkushwaha/bbc-full-text-document-classification)
+
+This app uses BBC news articles as training data. The dataset consists of 2225 documents corresponding to stories in five topical areas (business, entertainment, politics, sport, tech) from 2004-2005.  
+
+Publication:  
+D. Greene and P. Cunningham. "Practical Solutions to the Problem of Diagonal Dominance in Kernel Document Clustering", Proc. ICML 2006.  
+
+All rights, including copyright, in the content of the original articles are owned by the BBC.  
+[License](https://opendatacommons.org/licenses/dbcl/1-0/)
+
 ## Made By
 
 Samu Syrjänen  

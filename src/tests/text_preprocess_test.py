@@ -15,12 +15,21 @@ class TestTextPreprocess(unittest.TestCase):
         self.text_preprocess.to_lower_case()
         self.assertEqual(self.text_preprocess.get_texts(), correct)
 
-    def test_remove_punctuation(self):
+    def test_remove_punctuation_removes_punctuation(self):
         correct = ['To create a function in a class that outputs selftexts you can define a method within the class that returns the value of the selftexts attribute',
                    'n this example the class MyClass has an init method that initializes the selftexts attribute with a value passed as an argument The gettexts method is defined to 100 times retrieve the value of selftexts and return it',
                    'testing numbers 123 1 44 45 and 46']
         self.text_preprocess.remove_punctuation()
         self.assertEqual(self.text_preprocess.get_texts(), correct)
+
+    def test_remove_punctuation_removes_slash_commands(self):
+        texts = ['To create a function in a\' clas\'s that outputs self.texts, \nyou',
+                 '123\n4']
+        correct = ['To create a function in a  clas s that outputs selftexts  you',
+                 '123 4']
+        slash_preprocess = TextPreprocess(texts)
+        slash_preprocess.remove_punctuation()
+        self.assertEqual(slash_preprocess.get_texts(), correct)
 
     def test_numbers_to_num(self):
         correct = ['To create a function in a class that outputs self.texts, you can define a method within the class that returns the value of the self.texts attribute.',
