@@ -1,36 +1,38 @@
-import zipfile
-import os
-
 class Dataset:
     '''
-    Dataset() is used to select, and read a dataset into a list.
+    Handles the dataset.
 
+    Attributes:
+        dataset_reader (DatasetReader): Loads the dataset from "datasets" directory.
+        text_preprocessor (TextPreprocessor): Preprocesses the dataset.
+    
     Methods:
-        read_dataset(file: str)
-        get_texts() returns the texts (a list of strings, each string being a text document).
+        get_dataset_files(): Returns all available datasets in "datasets" directory.
+        read_dataset(file_name): Loads the selected (file_name) dataset. Returns False if not found.
+        preprocess(): Preprocesses the loaded dataset.
+        get_dataset(): Returns the current dataset.
     '''
 
-    def __init__(self):
-        self.texts = []
+    def __init__(self, dataset_reader, text_preprocessor):
+        self.dataset = []
+        self.dataset_reader = dataset_reader
+        self.text_preprocessor = text_preprocessor
 
-    def read_dataset(self, file: str):
-        '''
-        Reads the dataset. The file must be in "datasets" folder, and the text documents must be in .txt files.
-        One text document per .txt file.
-        
-        Args:
-            file (str): A zip file to be read. example: 'archive.zip'
-        '''
+    def get_dataset_files(self):
+        return self.dataset_reader.get_dataset_files()
 
-        with zipfile.ZipFile(os.path.join('datasets', file), 'r') as dataset:
-            for file_info in dataset.infolist():
-                if file_info.filename.endswith('.txt'):
-                    with dataset.open(file_info) as txt_file:
-                        try:
-                            text = txt_file.read().decode('utf-8')
-                            self.texts.append(text)
-                        except UnicodeDecodeError:
-                            print(f'Skipping file: {file_info.filename} - contains non-UTF-8 characters')
+    def read_dataset(self, file_name):
+        self.dataset = self.dataset_reader.read_dataset(file_name)
+        if not self.dataset:
+            self.dataset = []
+            return False
+        return True
 
-    def get_texts(self):
-        return self.texts
+    def preprocess(self):
+        if self.dataset == []:
+            return False
+        self.dataset = self.text_preprocessor.preprocess(self.dataset)
+        return True
+
+    def get_dataset(self):
+        return self.dataset

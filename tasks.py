@@ -10,3 +10,7 @@ def test(ctx):
 @task
 def lint(ctx):
     ctx.run('pylint src')
+
+@task
+def start(ctx):
+    ctx.run('python3 src/app.py')

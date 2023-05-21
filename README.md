@@ -20,6 +20,11 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ## Usage
 
+### Run  
+`poetry run invoke start`  
+
+### Commands
+
 You can list all available commands with:  
 `poetry run invoke --list`  
 
@@ -27,6 +32,7 @@ To run a command:
 `poetry run invoke <command>`  
 
 Commands:
+- `start`
 - `test`
 - `lint`
 

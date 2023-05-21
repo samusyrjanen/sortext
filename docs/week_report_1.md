@@ -37,3 +37,8 @@ I created a text preprocessing file, which I will be running before TF-IDF. The 
 - 6 h
 
 Today I started by creating invoke tasks for the commonly used commands. I also added linting and coverage report for the tests, and documented them. Created dataset.py that reads the dataset into a list, and added tests for it. I found a good dataset of over 2000 BBC articles, and added it to datasets folder. The copyright and license can be found in [README](../README.md). The user can also add their own datasets into "datasets" folder. The functionality for selecting a dataset will be made later.
+
+### Sunday 21.5.
+- 5 h
+
+I began the day by creating a command line interface. I made a new dataset.py file which is responsible for handling the data by comminucating with dataset_reader.py and text_preprocessor.py. The new app.py is used to launch the app. Made tests, documentations, and an invoke command for launching the app.
