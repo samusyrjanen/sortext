@@ -1,4 +1,4 @@
-## The First Days
+## The first days
 
 ### Sunday 7.5.
 - 5 h
@@ -41,4 +41,13 @@ Today I started by creating invoke tasks for the commonly used commands. I also 
 ### Sunday 21.5.
 - 5 h
 
-I began the day by creating a command line interface. I made a new dataset.py file which is responsible for handling the data by comminucating with dataset_reader.py and text_preprocessor.py. The new app.py is used to launch the app. Made tests, documentations, and an invoke command for launching the app.
+I began the day by creating a command line interface. I made a new dataset.py file which is responsible for handling the data by comminucating with dataset_reader.py and text_preprocessor.py. The new app.py is used to launch the app. Made tests, documentations, and an invoke command for launching the app. I haven't stumbled into any problems yet, and have no questions at the moment.
+
+### Working hours this week
+48 h  
+
+I will probably slow down the work pace since the hours seem to sum up quickly.
+
+## Next week
+
+Next week I will probably be creating the term-document matrix and TF-IDF stuff.
