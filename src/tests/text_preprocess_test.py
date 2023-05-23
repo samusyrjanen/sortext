@@ -53,16 +53,16 @@ class TestTextPreprocessor(unittest.TestCase):
         self.assertEqual(processed_texts, correct)
 
     def test_stem(self):
-        correct = ['to creat function class output self.texts, defin method within class return valu self.text attribute.',
-                   'n example, class myclass __init__ method initi self.text attribut valu pass argument. the get_text method defin 100 time retriev valu self.text return it.',
-                   'test numbers: 123 1. 44, 45, 46.']
+        correct = [['to', 'creat', 'function', 'class', 'output', 'self.texts,', 'defin', 'method', 'within', 'class', 'return', 'valu', 'self.text', 'attribute.'],
+                   ['n', 'example,', 'class', 'myclass', '__init__', 'method', 'initi', 'self.text', 'attribut', 'valu', 'pass', 'argument.', 'the', 'get_text', 'method', 'defin', '100', 'time', 'retriev', 'valu', 'self.text', 'return', 'it.'],
+                   ['test', 'numbers:', '123', '1.', '44,', '45,', '46.']]
         processed_texts = self.text_preprocessor.split_words(self.texts)
         processed_texts = self.text_preprocessor.stem(processed_texts)
         self.assertEqual(processed_texts, correct)
 
     def test_preprocess(self):
-        correct = ['creat function class output selftext defin method within class return valu selftext attribut',
-                   'exampl class myclass init method initi selftext attribut valu pass argument gettext method defin num time retriev valu selftext return',
-                   'test number num num num num num']
+        correct = [['creat', 'function', 'class', 'output', 'selftext', 'defin', 'method', 'within', 'class', 'return', 'valu', 'selftext', 'attribut'],
+                   ['exampl', 'class', 'myclass', 'init', 'method', 'initi', 'selftext', 'attribut', 'valu', 'pass', 'argument', 'gettext', 'method', 'defin', 'num', 'time', 'retriev', 'valu', 'selftext', 'return'],
+                   ['test', 'number', 'num', 'num', 'num', 'num', 'num']]
         processed_texts = self.text_preprocessor.preprocess(self.texts)
         self.assertEqual(processed_texts, correct)

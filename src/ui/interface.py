@@ -4,7 +4,12 @@ class Interface:
 
     def start(self):
         while True:
-            command = input('Commands:\n(1) Load a dataset\n(2) Preprocess a dataset (takes usually couple of seconds)\n(3) Print a text from dataset\n(0) Exit\n\nSelect (number): ')
+            command = input('Commands:\n'
+                            '(1) Load a dataset\n'
+                            '(2) Preprocess a dataset (takes usually couple of seconds)\n'
+                            '(3) Print a text from dataset\n'
+                            '(0) Exit\n\n'
+                            'Select (number): ')
             if command == '1':
                 self.commands.read_dataset()
             elif command == '2':

@@ -14,7 +14,7 @@ class TextPreprocessor:
         numbers_to_num(texts: list): Changes each number into a 'num'-string.
         split_words(texts: list): Splits the text documents into a list of words.
         remove_short_long(texts: list): Removes words with less than 3 or more that 20 characters.
-        stem(texts: list): Stemmes the words into their base form removing any conjugations. Also joins the word lists back into a string.
+        stem(texts: list): Stemmes the words into their base form removing any conjugations.
     '''
 
     def __init__(self):
@@ -50,4 +50,4 @@ class TextPreprocessor:
         return [[word for word in text if 2 < len(word) < 21] for text in texts]
 
     def stem(self, texts: list):
-        return [" ".join([self.stemmer.stem(word) for word in text]) for text in texts]
+        return [[self.stemmer.stem(word) for word in text] for text in texts]
