@@ -1,6 +1,6 @@
 # sortext
 
-![GHA workflow badge](https://github.com/samusyrjanen/sortext/workflows/CI/badge.svg)
+![GHA workflow badge](https://github.com/samusyrjanen/sortext/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/samusyrjanen/sortext/branch/main/graph/badge.svg?token=TMTGIKOD27)](https://codecov.io/gh/samusyrjanen/sortext)
 
 This is a text sorting app. The app takes one or multiple news articles as an input. Using the predetermined or user-given training data, it sorts those articles into similar groups.
 
