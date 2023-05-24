@@ -28,6 +28,8 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ### Commands
 
+If you run `poetry shell`, the "poetry run" part will not be needed in the commands. Exit poetry shell with `exit`.
+
 You can list all available commands with:  
 `poetry run invoke --list`  
 
