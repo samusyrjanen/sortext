@@ -32,18 +32,17 @@ class Commands:
 
     def preprocess_dataset(self):
         print('Preprocessing...')
-        preprocessed = self.dataset.preprocess()
-        if not preprocessed:
+        if not self.dataset.preprocess():
             print('\nNo dataset, load a dataset first\n')
             return
         print('Done\n')
 
     def print_text(self):
         dataset_texts = self.dataset.get_dataset()
-        dataset_length = len(dataset_texts)
-        if dataset_length == 0:
+        if not dataset_texts:
             print('\nNo dataset, load a dataset first\n')
             return
+        dataset_length = len(dataset_texts)
         dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (number): ')
         while True:
             try:
@@ -54,3 +53,14 @@ class Commands:
                 pass
             print('Not found')
             dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (number): ')
+
+    def create_term_document_matrix(self):
+        print('Creating a matrix...')
+        if not self.dataset.create_term_document_matrix():
+            print('\nLoad and preprocess a dataset first\n')
+            return
+        print('Done\n')
+
+    def print_matrix(self):
+        if not self.dataset.print_matrix():
+            print('\nCreate a term-document matrix first\n')

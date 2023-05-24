@@ -6,8 +6,10 @@ class Interface:
         while True:
             command = input('Commands:\n'
                             '(1) Load a dataset\n'
-                            '(2) Preprocess a dataset (takes usually couple of seconds)\n'
-                            '(3) Print a text from dataset\n'
+                            '(2) Preprocess the loaded dataset (takes usually couple of seconds)\n'
+                            '(3) Print a text from the loaded dataset\n'
+                            '(4) Create a term-document matrix of the loaded dataset\n'
+                            '(5) Print the term-document matrix\n'
                             '(0) Exit\n\n'
                             'Select (number): ')
             if command == '1':
@@ -16,6 +18,10 @@ class Interface:
                 self.commands.preprocess_dataset()
             elif command == '3':
                 self.commands.print_text()
+            elif command == '4':
+                self.commands.create_term_document_matrix()
+            elif command == '5':
+                self.commands.print_matrix()
             elif command == '0':
                 print('Exit')
                 return
