@@ -7,3 +7,8 @@ I had some problems configuring a python version for github actions. It is worki
 - 4 h
 
 A term-document matrix can now be generated of a dataset.
+
+### Friday 26.5.
+- 6 h
+
+Able to compute the normalized TF-IDF matrix from a loaded term-document matrix. I learned alot about numpy arrays and math operations related to them. Because of the way the matrices are formed, they are not identical each run. The indexing of columns varies because of the way the [unique words](https://vscode.dev/github/samusyrjanen/sortext/blob/main/src/term_document_matrix.py#L19) are accumulated into a set. This makes testing a bit tricky. At the moment I have [tested](https://vscode.dev/github/samusyrjanen/sortext/blob/main/src/tests/term_document_matrix_test.py#L17) the related functions, for example, by summing up rows or a whole matrix. I believe that is good enough.

@@ -9,6 +9,11 @@ class Commands:
         read_dataset(): Loads a dataset from "datasets" directory.
         preprocess_dataset(): Preprocesses the loaded dataset.
         print_text(): Prints a user-selected text from the dataset.
+        create_term_document_matrix(): Creates a matrix where rows are documents and columns are unique words.
+        The cells represent the number of occurences of each word.
+        print_matrix()
+        create_tfidf_matrix(): Calculates the term-document matrix into normalized TF-IDF matrix.
+        run_all(): Runs all the operations.
     '''
 
     def __init__(self, dataset):
@@ -63,4 +68,17 @@ class Commands:
 
     def print_matrix(self):
         if not self.dataset.print_matrix():
+            print('\nCreate a matrix first\n')
+
+    def create_tfidf_matrix(self):
+        print('Creating TF-IDF matrix...')
+        if not self.dataset.create_tfidf_matrix():
             print('\nCreate a term-document matrix first\n')
+            return
+        print('Done\n')
+
+    def run_all(self):
+        self.read_dataset()
+        self.preprocess_dataset()
+        self.create_term_document_matrix()
+        self.create_tfidf_matrix()

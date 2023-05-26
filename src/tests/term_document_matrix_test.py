@@ -37,3 +37,19 @@ class TestTermDocumentMatrix(unittest.TestCase):
 
         self.assertEqual(document_names, ['Document 1', 'Document 2', 'Document 3'])
         self.assertEqual(unique_words, correct_unique_words)
+
+    def test_compute_idf(self):
+        correct = 59.16871558466
+        matrix1, do, da = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        idf = self.term_document_matrix.compute_idf(matrix1)
+        idf_sum = np.sum(idf)
+        rounded_idf_sum = "{:.11f}".format(idf_sum)
+        self.assertEqual(float(rounded_idf_sum), correct)
+
+    def test_create_tfidf_matrix(self):
+        correct = 8.58415977128
+        matrix1, do, da = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        tfidf = self.term_document_matrix.create_tfidf_matrix(matrix1)
+        tfidf_sum = np.sum(tfidf)
+        rounded_tfidf_sum = "{:.11f}".format(tfidf_sum)
+        self.assertEqual(float(rounded_tfidf_sum), correct)

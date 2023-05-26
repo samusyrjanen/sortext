@@ -13,6 +13,7 @@ class Dataset:
         get_dataset(): Returns the current dataset.
         create_term_document_matrix(): Creates a matrix in which the rows represent documents, and columns unique words.
         print_matrix(): Prints the matrix.
+        create_tfidf_matrix(): Multiplies TF and IDF matrices into TF-IDF matrix, and normalizes it.
     '''
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix):
@@ -56,4 +57,10 @@ class Dataset:
         for document_name, row in zip(self.document_names, self.matrix):
             print(document_name + ":", row)
         print(f'\nNumber of unique words: {len(self.unique_words)}\n')
+        return True
+
+    def create_tfidf_matrix(self):
+        if self.matrix is None:
+            return False
+        self.matrix = self.term_document_matrix.create_tfidf_matrix(self.matrix)
         return True
