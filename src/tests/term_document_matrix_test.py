@@ -17,7 +17,7 @@ class TestTermDocumentMatrix(unittest.TestCase):
     def test_create_term_document_matrix(self):
         correct_unique_words = {'time', 'num', 'method', 'myclass', 'within', 'test', 'number', 'exampl', 'attribut', 'defin', 'class', 'return', 'creat', 'retriev', 'function', 'output', 'valu', 'argument', 'init', 'pass', 'selftext', 'initi', 'gettext'}
 
-        matrix, document_names, unique_words = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
 
         row1_zeros = np.count_nonzero(matrix[0] == 0)
         row1_ones = np.count_nonzero(matrix[0] == 1)
@@ -40,7 +40,7 @@ class TestTermDocumentMatrix(unittest.TestCase):
 
     def test_compute_idf(self):
         correct = 59.16871558466
-        matrix1, do, da = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        matrix1, do, da, di = self.term_document_matrix.create_term_document_matrix(self.dataset)
         idf = self.term_document_matrix.compute_idf(matrix1)
         idf_sum = np.sum(idf)
         rounded_idf_sum = "{:.11f}".format(idf_sum)
@@ -48,8 +48,34 @@ class TestTermDocumentMatrix(unittest.TestCase):
 
     def test_create_tfidf_matrix(self):
         correct = 8.58415977128
-        matrix1, do, da = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        matrix1, do, da, di = self.term_document_matrix.create_term_document_matrix(self.dataset)
         tfidf = self.term_document_matrix.create_tfidf_matrix(matrix1)
         tfidf_sum = np.sum(tfidf)
         rounded_tfidf_sum = "{:.11f}".format(tfidf_sum)
         self.assertEqual(float(rounded_tfidf_sum), correct)
+
+    def test_get_important_terms(self):
+        correct = 253
+        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
+        important_terms = self.term_document_matrix.get_important_terms(tfidf_matrix)
+        self.assertEqual(np.sum(important_terms), correct)
+
+    def test_reduce_word_to_index(self):
+        correct = 4
+        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
+        important_terms = self.term_document_matrix.get_important_terms(tfidf_matrix)
+        reduced_word_to_index = self.term_document_matrix.reduce_word_to_index(word_to_index, important_terms[:4])
+        self.assertEqual(len(reduced_word_to_index), correct)
+
+    def test_reduce_terms(self):
+        dict_len = 4
+        correct_matrix_sum = 2.2903804
+        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
+        reduced_matrix, reduced_word_to_index = self.term_document_matrix.reduce_terms(tfidf_matrix, word_to_index, 4)
+        matrix_sum = np.sum(reduced_matrix)
+        rounded_matrix_sum = "{:.7f}".format(matrix_sum)
+        self.assertEqual(len(reduced_word_to_index), dict_len)
+        self.assertEqual(float(rounded_matrix_sum), correct_matrix_sum)

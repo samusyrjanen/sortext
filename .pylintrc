@@ -5,6 +5,8 @@ disable=
     C0116, #missing-function-docstring
     W0702, #bare-except
     R0903, #too-few-public-methods
+    R1721, #unnecessary-comprehension
+    R0902, #too-many-instance-attributes
 
 [pycodestyle]
 max-line-length=150

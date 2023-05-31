@@ -11,7 +11,9 @@ class Interface:
                             '(4) Create a term-document matrix of the loaded dataset\n'
                             '(5) Print the matrix\n'
                             '(6) Convert term-document matrix into TF-IDF matrix (takes around 40 seconds with archive.zip)\n'
-                            '(7) run all\n'
+                            '(7) Reduce the number of terms to be used for clustering\n'
+                            '(8) Print the reduced matrix\n'
+                            '(9) run all\n'
                             '(0) Exit\n\n'
                             'Select (number): ')
             if command == '1':
@@ -27,6 +29,10 @@ class Interface:
             elif command == '6':
                 self.commands.create_tfidf_matrix()
             elif command == '7':
+                self.commands.reduce_terms()
+            elif command == '8':
+                self.commands.print_reduced_matrix()
+            elif command == '9':
                 self.commands.run_all()
             elif command == '0':
                 print('Exit')

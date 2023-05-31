@@ -14,13 +14,19 @@ class Dataset:
         create_term_document_matrix(): Creates a matrix in which the rows represent documents, and columns unique words.
         print_matrix(): Prints the matrix.
         create_tfidf_matrix(): Multiplies TF and IDF matrices into TF-IDF matrix, and normalizes it.
+        reduce_terms(max_terms): Reduces the number of terms used in the matrix.
+        get_unique_words(): Returns all the unique words in the matrix.
+        print_reduced_matrix(): Prints the reduced matrix.
     '''
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix):
         self.dataset = None
         self.matrix = None
+        self.reduced_matrix = None
         self.document_names = None
         self.unique_words = None
+        self.word_to_index = None
+        self.reduced_word_to_index = None
         self.dataset_reader = dataset_reader
         self.text_preprocessor = text_preprocessor
         self.term_document_matrix = term_document_matrix
@@ -47,7 +53,7 @@ class Dataset:
     def create_term_document_matrix(self):
         if self.dataset is None:
             return False
-        self.matrix, self.document_names, self.unique_words = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        self.matrix, self.document_names, self.unique_words, self.word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
         return True
 
     def print_matrix(self):
@@ -63,4 +69,22 @@ class Dataset:
         if self.matrix is None:
             return False
         self.matrix = self.term_document_matrix.create_tfidf_matrix(self.matrix)
+        return True
+
+    def reduce_terms(self, max_terms):
+        if self.matrix is None or max_terms >= len(self.unique_words):
+            return False
+        self.reduced_matrix, self.reduced_word_to_index = self.term_document_matrix.reduce_terms(self.matrix, self.word_to_index, max_terms)
+        return True
+
+    def get_unique_words(self):
+        return self.unique_words
+
+    def print_reduced_matrix(self):
+        if self.reduced_matrix is None:
+            return False
+        print(f'Terms ({len(self.reduced_word_to_index)}):', self.reduced_word_to_index)
+        for document_name, row in zip(self.document_names, self.reduced_matrix):
+            print(document_name + ":", row)
+        print(f'\nNumber of unique words: {len(self.reduced_word_to_index)}\n')
         return True

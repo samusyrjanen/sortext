@@ -13,6 +13,8 @@ class Commands:
         The cells represent the number of occurences of each word.
         print_matrix()
         create_tfidf_matrix(): Calculates the term-document matrix into normalized TF-IDF matrix.
+        reduce_terms(): Reduces the terms used for the clustering algorithm.
+        print_reduced_matrix(): Prints the reduced matrix.
         run_all(): Runs all the operations.
     '''
 
@@ -77,8 +79,30 @@ class Commands:
             return
         print('Done\n')
 
+    def reduce_terms(self):
+        unique_words = self.dataset.get_unique_words()
+        while True:
+            max_terms = input(f'\n\nThere are currently {len(unique_words)} unique terms (columns) in the matrix.'
+                              '\n\nSelect the number of terms to retain: ')
+            try:
+                max_terms = int(max_terms)
+            except:
+                print('Give an integer')
+                continue
+            if not self.dataset.reduce_terms(max_terms):
+                print('Error, ensure that you have loaded a TF-IDF matrix and the value is not higher than the number '
+                      'of unique terms (columns) in the matrix.')
+                continue
+            break
+        print('Done\n')
+
+    def print_reduced_matrix(self):
+        if not self.dataset.print_reduced_matrix():
+            print('\nCreate a reduced matrix first\n')
+
     def run_all(self):
         self.read_dataset()
         self.preprocess_dataset()
         self.create_term_document_matrix()
         self.create_tfidf_matrix()
+        self.reduce_terms()
