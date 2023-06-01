@@ -7,8 +7,11 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 ## Documents
 
 [Specification](docs/specification.md)  
+[Testing Document](docs/testing_document.md)  
+
 [Week Report 1](docs/week_report_1.md)  
 [Week Report 2](docs/week_report_2.md)  
+[Week Report 3](docs/week_report_3.md)  
 
 ## Requirements
 
