@@ -5,7 +5,7 @@ class TestDatasetReader(unittest.TestCase):
     def setUp(self):
         self.dataset_reader = DatasetReader()
 
-    def test_dataset_files(self):
+    def test_get_dataset_files(self):
         correct = ['archive.zip']
         files = self.dataset_reader.get_dataset_files()
         self.assertEqual(files, correct)

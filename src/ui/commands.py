@@ -1,3 +1,5 @@
+import time
+
 class Commands:
     '''
     Functions for all the commands.
@@ -27,6 +29,7 @@ class Commands:
         for file in datasets:
             print(file)
         selected_dataset = input('\nSelect a dataset: ')
+        start_time = time.time()
         print('Loading...')
         while not self.dataset.read_dataset(selected_dataset):
             print('Not found, try again')
@@ -34,15 +37,23 @@ class Commands:
             for file in datasets:
                 print(file)
             selected_dataset = input('\nSelect a dataset: ')
+            start_time = time.time()
             print('Loading...')
-        print('Dataset loaded\n')
+        print('Dataset loaded')
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f'Loading time: {elapsed_time} seconds\n')
 
     def preprocess_dataset(self):
         print('Preprocessing...')
+        start_time = time.time()
         if not self.dataset.preprocess():
             print('\nNo dataset, load a dataset first\n')
             return
-        print('Done\n')
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print('Done')
+        print(f'Preprocessing time: {elapsed_time} seconds\n')
 
     def print_text(self):
         dataset_texts = self.dataset.get_dataset()
@@ -62,28 +73,37 @@ class Commands:
             dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (number): ')
 
     def create_term_document_matrix(self):
+        start_time = time.time()
         print('Creating a matrix...')
         if not self.dataset.create_term_document_matrix():
             print('\nLoad and preprocess a dataset first\n')
             return
-        print('Done\n')
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print('Done')
+        print(f'Term-document matrix creation time: {elapsed_time} seconds\n')
 
     def print_matrix(self):
         if not self.dataset.print_matrix():
             print('\nCreate a matrix first\n')
 
     def create_tfidf_matrix(self):
+        start_time = time.time()
         print('Creating TF-IDF matrix...')
         if not self.dataset.create_tfidf_matrix():
             print('\nCreate a term-document matrix first\n')
             return
-        print('Done\n')
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print('Done')
+        print(f'TF-IDF matrix creation time: {elapsed_time} seconds\n')
 
     def reduce_terms(self):
         unique_words = self.dataset.get_unique_words()
         while True:
             max_terms = input(f'\n\nThere are currently {len(unique_words)} unique terms (columns) in the matrix.'
-                              '\n\nSelect the number of terms to retain: ')
+                              '\n\nSelect the number of terms to retain (lower is faster, but higher is more accurate): ')
+            start_time = time.time()
             try:
                 max_terms = int(max_terms)
             except:
@@ -94,7 +114,10 @@ class Commands:
                       'of unique terms (columns) in the matrix.')
                 continue
             break
-        print('Done\n')
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print('Done')
+        print(f'Term reduction time: {elapsed_time} seconds\n')
 
     def print_reduced_matrix(self):
         if not self.dataset.print_reduced_matrix():
