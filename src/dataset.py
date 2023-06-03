@@ -17,19 +17,24 @@ class Dataset:
         reduce_terms(max_terms): Reduces the number of terms used in the matrix.
         get_unique_words(): Returns all the unique words in the matrix.
         print_reduced_matrix(): Prints the reduced matrix.
+        initialize_centroids(number_of_centroids): Initializes the centroids for clusters.
+        print_centroids(): Prints an array of centroid coordinates.
     '''
 
-    def __init__(self, dataset_reader, text_preprocessor, term_document_matrix):
+    def __init__(self, dataset_reader, text_preprocessor, term_document_matrix, k_means):
         self.dataset = None
         self.matrix = None
-        self.reduced_matrix = None
         self.document_names = None
         self.unique_words = None
         self.word_to_index = None
+        self.reduced_matrix = None
         self.reduced_word_to_index = None
+        self.centroid_coordinates = None
+        self.distances = None
         self.dataset_reader = dataset_reader
         self.text_preprocessor = text_preprocessor
         self.term_document_matrix = term_document_matrix
+        self.k_means = k_means
 
     def get_dataset_files(self):
         return self.dataset_reader.get_dataset_files()
@@ -87,4 +92,23 @@ class Dataset:
         for document_name, row in zip(self.document_names, self.reduced_matrix):
             print(document_name + ":", row)
         print(f'\nNumber of unique words: {len(self.reduced_word_to_index)}\n')
+        return True
+
+    def initialize_centroids(self, number_of_centroids: int):
+        if self.reduced_matrix is None:
+            if self.matrix is None or number_of_centroids > len(self.matrix):
+                return False
+            self.centroid_coordinates, self.distances = self.k_means.initialize_centroids(self.matrix, number_of_centroids)
+            return True
+        if number_of_centroids > len(self.reduced_matrix):
+            return False
+        self.centroid_coordinates, self.distances = self.k_means.initialize_centroids(self.reduced_matrix, number_of_centroids)
+        return True
+
+    def print_centroids(self):
+        if self.centroid_coordinates is None:
+            return False
+        print('Rows are centroids and columns are unique terms (coordinates)\n')
+        print(self.centroid_coordinates)
+        print('\nRows are centroids and columns are unique terms (coordinates)\n')
         return True

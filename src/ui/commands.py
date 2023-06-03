@@ -17,6 +17,8 @@ class Commands:
         create_tfidf_matrix(): Calculates the term-document matrix into normalized TF-IDF matrix.
         reduce_terms(): Reduces the terms used for the clustering algorithm.
         print_reduced_matrix(): Prints the reduced matrix.
+        initialize_centroids(): Initializes centroids for clusters.
+        print_centroids(): Prints an array of centroid coordinates.
         run_all(): Runs all the operations.
     '''
 
@@ -123,9 +125,32 @@ class Commands:
         if not self.dataset.print_reduced_matrix():
             print('\nCreate a reduced matrix first\n')
 
+    def initialize_centroids(self):
+        while True:
+            number_of_centroids = input('\n\nGive number of clusters: ')
+            try:
+                number_of_centroids = int(number_of_centroids)
+            except:
+                print('Error: Give an integer\n')
+                continue
+            start_time = time.time()
+            print('Initializing centroids...')
+            if self.dataset.initialize_centroids(number_of_centroids):
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                print('Done')
+                print(f'Centroid initialization time: {elapsed_time} seconds\n')
+                break
+            print('Error: Create TF-IDF matrix first, and give ensure the number of clusters is smaller than the number of documents\n')
+
+    def print_centroids(self):
+        if not self.dataset.print_centroids():
+            print('Error: Initialize centroids first\n')
+
     def run_all(self):
         self.read_dataset()
         self.preprocess_dataset()
         self.create_term_document_matrix()
         self.create_tfidf_matrix()
         self.reduce_terms()
+        self.initialize_centroids()

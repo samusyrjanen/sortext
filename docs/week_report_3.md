@@ -7,3 +7,8 @@ I have been researching the best ways to reduce the number of terms in the TF-ID
 - 3 h
 
 Created a testing document and some running time measurements into the code.
+
+### Saturday 3.5.
+- 6 h
+
+Centroids can now be initialized using k-means++.

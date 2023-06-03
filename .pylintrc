@@ -7,6 +7,7 @@ disable=
     R0903, #too-few-public-methods
     R1721, #unnecessary-comprehension
     R0902, #too-many-instance-attributes
+    R0912, #too-many-branches
 
 [pycodestyle]
 max-line-length=150
