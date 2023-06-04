@@ -31,7 +31,15 @@ Because of the way the matrices are formed, they are not identical with each run
 Hardcoded dataset used in tests:
 - dataset = [['creat', 'function', 'class', 'output', 'selftext', 'defin', 'method', 'within', 'class', 'return', 'valu', 'selftext', 'attribut'], ['exampl', 'class', 'myclass', 'init', 'method', 'initi', 'selftext', 'attribut', 'valu', 'pass', 'argument', 'gettext', 'method', 'defin', 'num', 'time', 'retriev', 'valu', 'selftext', 'return'], ['test', 'number', 'num', 'num', 'num', 'num', 'num']]
 
-## Running Time
+### k_means.py
+
+Initializes centroids using k-means++, calculates euclidean distance between all documents and centroids, returns the clusters each document belongs to, calculates new centroid coordinates based on the means of all the documents which belong to each cluster and executes the K-means iterations correctly.
+
+Hardcoded datasets used in tests:
+- matrix = np.array([[1,2,3,5,6], [4,5,6,6,5], [7,8,1,2,9], [6,6,6,7,8], [2,1,2,2,1]])
+- centroids = np.array([[3,3,3,3,3], [5,5,5,5,5], [1,1,1,1,1]])
+
+## Running Times
 
 The times have been measured using the "archive.zip" dataset which is located in "datasets" folder.
 
@@ -42,4 +50,7 @@ Preprocess a dataset | 9.4 s |
 Create a term-document matrix | 1.0 s |
 Create a TF-IDF matrix | 32.6 s |
 Reduce the number of terms | 0.8 s |
-Overall | 43.9 s |
+Centroid initialization | 0.5 s |
+K-means clustering (with 10000 terms, 10 clusters, and 21 iterations) | 42.2 s |
+K-means clustering (with 1000 terms, 5 clusters, and 30 iterations) | 4.9 s |
+Overall (depending on settings) | 49.3 - 86.6 s |

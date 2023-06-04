@@ -19,6 +19,8 @@ class Dataset:
         print_reduced_matrix(): Prints the reduced matrix.
         initialize_centroids(number_of_centroids): Initializes the centroids for clusters.
         print_centroids(): Prints an array of centroid coordinates.
+        run_k_means(max_iterations: int=5): Runs the K-means algorithm creating clusters.
+        print_clusters(): Prints the cluster array. Columns are documents and values clusters.
     '''
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix, k_means):
@@ -31,6 +33,7 @@ class Dataset:
         self.reduced_word_to_index = None
         self.centroid_coordinates = None
         self.distances = None
+        self.clusters = None
         self.dataset_reader = dataset_reader
         self.text_preprocessor = text_preprocessor
         self.term_document_matrix = term_document_matrix
@@ -111,4 +114,27 @@ class Dataset:
         print('Rows are centroids and columns are unique terms (coordinates)\n')
         print(self.centroid_coordinates)
         print('\nRows are centroids and columns are unique terms (coordinates)\n')
+        return True
+
+    def run_k_means(self, max_iterations: int=5):
+        if self.centroid_coordinates is None:
+            return False
+        if self.reduced_matrix is None:
+            self.centroid_coordinates, self.clusters = self.k_means.run_k_means(self.matrix,
+                                                                                self.centroid_coordinates,
+                                                                                self.distances,
+                                                                                max_iterations)
+            return True
+        self.centroid_coordinates, self.clusters = self.k_means.run_k_means(self.reduced_matrix,
+                                                                            self.centroid_coordinates,
+                                                                            self.distances,
+                                                                            max_iterations)
+        return True
+
+    def print_clusters(self):
+        if self.clusters is None:
+            return False
+        print('Columns represent documents, and values represent the cluster they belong to\n')
+        print(self.clusters)
+        print('\nColumns represent documents, and values represent the cluster they belong to\n')
         return True

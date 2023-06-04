@@ -143,6 +143,9 @@ class TermDocumentMatrix:
         sorted_important_terms = np.sort(important_terms)
         reduced_matrix = matrix[:, sorted_important_terms].copy()
         reduced_word_to_index = self.reduce_word_to_index(word_to_index, sorted_important_terms)
-        zero_rows = np.all(reduced_matrix == 0, axis=1)
-        reduced_matrix = reduced_matrix[~zero_rows]
+
+        # #Delete rows which have no non-zero values.
+        # zero_rows = np.all(reduced_matrix == 0, axis=1)
+        # reduced_matrix = reduced_matrix[~zero_rows]
+
         return reduced_matrix, reduced_word_to_index

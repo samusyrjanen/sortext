@@ -19,6 +19,8 @@ class Commands:
         print_reduced_matrix(): Prints the reduced matrix.
         initialize_centroids(): Initializes centroids for clusters.
         print_centroids(): Prints an array of centroid coordinates.
+        run_k_means(): Runs the K-means algorithm.
+        print_clusters(): Prints an array that incocates which clusters each document belongs to. Columns are documents and values clusters.
         run_all(): Runs all the operations.
     '''
 
@@ -147,6 +149,28 @@ class Commands:
         if not self.dataset.print_centroids():
             print('Error: Initialize centroids first\n')
 
+    def run_k_means(self):
+        while True:
+            max_iterations = input('\n\nGive maximum iterations for clustering: ')
+            try:
+                max_iterations = int(max_iterations)
+            except:
+                print('Error: Maximum iterations must be an integer')
+                continue
+            break
+        start_time = time.time()
+        if not self.dataset.run_k_means(max_iterations):
+            print('Error: Initialize centroids first\n')
+            return
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print('Done')
+        print(f'Clustering time: {elapsed_time} seconds\n')
+
+    def print_clusters(self):
+        if not self.dataset.print_clusters():
+            print('Error: Run K-means clustering first\n')
+
     def run_all(self):
         self.read_dataset()
         self.preprocess_dataset()
@@ -154,3 +178,4 @@ class Commands:
         self.create_tfidf_matrix()
         self.reduce_terms()
         self.initialize_centroids()
+        self.run_k_means()

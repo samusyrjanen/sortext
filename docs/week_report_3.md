@@ -11,4 +11,14 @@ Created a testing document and some running time measurements into the code.
 ### Saturday 3.5.
 - 6 h
 
-Centroids can now be initialized using k-means++.
+Centroids can now be initialized using K-means++.
+
+### Sunday 4.5.
+- 5 h
+
+The functionality for K-means algorithm is finished. Learned more numpy array handling.
+
+### Working hours this week
+24 h
+
+Next I need to enhance the user interface and add functionalities for adding own texts for clustering. There also needs to be a better way to inspect the different documents and clusters.
