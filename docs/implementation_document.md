@@ -6,10 +6,11 @@ The startup and imports are done by app.py. After that the structure of the app 
 graph LR
     A(interface) --> B(commands)
     B --> C(dataset)
-    C --> D(dataset reader)
-    C --> E(text preprocessor)
-    C --> F(term-document matrix)
-    C --> G(k-means)
+    C <--> D(dataset reader)
+    D <--> H((training data: archive.zip))
+    C <--> E(text preprocessor)
+    C <--> F(term-document matrix)
+    C <--> G(k-means)
 ```
 
 ## Achieved Time and Space Complexity
