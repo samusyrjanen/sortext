@@ -8,12 +8,12 @@ I have been researching the best ways to reduce the number of terms in the TF-ID
 
 Created a testing document and some running time measurements into the code.
 
-### Saturday 3.5.
+### Saturday 3.6.
 - 6 h
 
 Centroids can now be initialized using K-means++.
 
-### Sunday 4.5.
+### Sunday 4.6.
 - 5 h
 
 The functionality for K-means algorithm is finished. Learned more numpy array handling.

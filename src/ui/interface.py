@@ -14,10 +14,9 @@ class Interface:
                             '(7) Run K-means clustering\n'
                             '(8) Print a text from the loaded dataset\n'
                             '(9) Print the matrix\n'
-                            '(10) Print the reduced matrix\n'
-                            '(11) Print centroid coordinates\n'
-                            '(12) Print clusters\n'
-                            '(13) Run all\n'
+                            '(10) Print centroid coordinates\n'
+                            '(11) Print clusters\n'
+                            '(12) Run all\n'
                             '(0) Exit\n\n'
                             'Select (number): ')
             if command == '1':
@@ -39,13 +38,13 @@ class Interface:
             elif command == '9':
                 self.commands.print_matrix()
             elif command == '10':
-                self.commands.print_reduced_matrix()
-            elif command == '11':
                 self.commands.print_centroids()
-            elif command == '12':
+            elif command == '11':
                 self.commands.print_clusters()
-            elif command == '13':
+            elif command == '12':
                 self.commands.run_all()
+            elif command == '13':
+                self.commands.print_reduced_matrix()
             elif command == '0':
                 print('Exit')
                 return
