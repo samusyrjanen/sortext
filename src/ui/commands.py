@@ -32,7 +32,7 @@ class Commands:
         print('\n\nDatasets:')
         for file in datasets:
             print(file)
-        selected_dataset = input('\nSelect a dataset: ')
+        selected_dataset = input('\nSelect a dataset by writing its name: ')
         start_time = time.time()
         print('Loading...')
         while not self.dataset.read_dataset(selected_dataset):
@@ -65,16 +65,33 @@ class Commands:
             print('\nNo dataset, load a dataset first\n')
             return
         dataset_length = len(dataset_texts)
-        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (number): ')
+        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
         while True:
             try:
-                if 0 <= int(dataset_index) < dataset_length:
-                    print(f'\n{dataset_texts[int(dataset_index)]}\n')
+                if 1 <= int(dataset_index) <= dataset_length:
+                    print(f'\n{dataset_texts[int(dataset_index)-1]}\n')
                     return
             except:
                 pass
             print('Not found')
-            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (number): ')
+            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+
+    def print_preprocessed_text(self):
+        dataset_texts = self.dataset.get_preprocessed_dataset()
+        if not dataset_texts:
+            print('\nNo dataset, preprocess a dataset first\n')
+            return
+        dataset_length = len(dataset_texts)
+        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+        while True:
+            try:
+                if 1 <= int(dataset_index) <= dataset_length:
+                    print(f'\n{dataset_texts[int(dataset_index)-1]}\n')
+                    return
+            except:
+                pass
+            print('Not found')
+            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
 
     def create_term_document_matrix(self):
         start_time = time.time()
@@ -129,7 +146,7 @@ class Commands:
 
     def initialize_centroids(self):
         while True:
-            number_of_centroids = input('\n\nGive number of clusters: ')
+            number_of_centroids = input('\n\nGive number of clusters (lower is faster, but higher is more accurate): ')
             try:
                 number_of_centroids = int(number_of_centroids)
             except:
@@ -151,7 +168,7 @@ class Commands:
 
     def run_k_means(self):
         while True:
-            max_iterations = input('\n\nGive maximum iterations for clustering: ')
+            max_iterations = input('\n\nGive maximum iterations for clustering (usually takes 10-20 iterations for convergence): ')
             try:
                 max_iterations = int(max_iterations)
             except:
@@ -168,8 +185,62 @@ class Commands:
         print(f'Clustering time: {elapsed_time} seconds\n')
 
     def print_clusters(self):
-        if not self.dataset.print_clusters():
+        clusters = self.dataset.get_clusters()
+        if clusters is None:
             print('Error: Run K-means clustering first\n')
+            return
+        for index in range(len(clusters)):
+            print(f'Document {index+1}: cluster {clusters[index]+1}')
+        print()
+
+    def print_document_information(self):
+        dataset_texts = self.dataset.get_dataset()
+        if not dataset_texts:
+            print('\nNo dataset, load a dataset first\n')
+            return
+        preprocessed_dataset_texts = self.dataset.get_preprocessed_dataset()
+        if not dataset_texts:
+            print('\nNo dataset, preprocess a dataset first\n')
+            return
+        clusters = self.dataset.get_clusters()
+        if clusters is None:
+            print('Error: Run K-means clustering first\n')
+            return
+        dataset_length = len(dataset_texts)
+        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+        while True:
+            try:
+                if 1 <= int(dataset_index) <= dataset_length:
+                    print(f'\n{dataset_texts[int(dataset_index)-1]}\n')
+                    print(f'Preprocessed document:\n{preprocessed_dataset_texts[int(dataset_index)-1]}\n')
+                    print(f'Document {dataset_index} belongs to the cluster {clusters[int(dataset_index)-1]+1}\n')
+                    return
+            except:
+                pass
+            print('Not found')
+            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+
+    def print_cluster(self):
+        clusters = self.dataset.get_clusters()
+        if clusters is None:
+            print('Error: Run K-means clustering first\n')
+            return
+        number_of_clusters = max(clusters) + 1
+        cluster_index = input(f'\n\nGive cluster index (1-{number_of_clusters}): ')
+        while True:
+            try:
+                if 1 <= int(cluster_index) <= number_of_clusters:
+                    counter = 0
+                    for i in range(len(clusters)):
+                        if clusters[i] == int(cluster_index)-1:
+                            print(f'Document {i+1}')
+                            counter += 1
+                    print(f'\nTotal number of documents in cluster {cluster_index} is {counter}\n')
+                    return
+            except:
+                pass
+            print('Not found')
+            cluster_index = input(f'\n\nGive cluster index (1-{number_of_clusters}): ')
 
     def run_all(self):
         self.read_dataset()

@@ -34,7 +34,7 @@ class TermDocumentMatrix:
         the correct row-column matches with the titles (document_names and unique_words) and cells (matrix).
         Because of the way the method unique_words(dataset: list) functions, the returned set of words have a different indexing each time.
         Because of this, the created matrices will not be identical (albeit still correct) if the function is run multiple times with the
-        same dataset.
+        same dataset. The indexing of documents is still identical and correct every time.
 
         Args:
             dataset (list): A list of lists, containing the words.

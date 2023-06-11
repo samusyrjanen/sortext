@@ -25,6 +25,7 @@ class Dataset:
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix, k_means):
         self.dataset = None
+        self.preprocessed_dataset = None
         self.matrix = None
         self.document_names = None
         self.unique_words = None
@@ -52,16 +53,19 @@ class Dataset:
     def preprocess(self):
         if self.dataset is None:
             return False
-        self.dataset = self.text_preprocessor.preprocess(self.dataset)
+        self.preprocessed_dataset = self.text_preprocessor.preprocess(self.dataset)
         return True
 
     def get_dataset(self):
         return self.dataset
+    
+    def get_preprocessed_dataset(self):
+        return self.preprocessed_dataset
 
     def create_term_document_matrix(self):
-        if self.dataset is None:
+        if self.preprocessed_dataset is None:
             return False
-        self.matrix, self.document_names, self.unique_words, self.word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        self.matrix, self.document_names, self.unique_words, self.word_to_index = self.term_document_matrix.create_term_document_matrix(self.preprocessed_dataset)
         return True
 
     def print_matrix(self):
@@ -131,10 +135,5 @@ class Dataset:
                                                                             max_iterations)
         return True
 
-    def print_clusters(self):
-        if self.clusters is None:
-            return False
-        print('Columns represent documents, and values represent the cluster they belong to\n')
-        print(self.clusters)
-        print('\nColumns represent documents, and values represent the cluster they belong to\n')
-        return True
+    def get_clusters(self):
+        return self.clusters
