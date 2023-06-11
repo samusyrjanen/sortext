@@ -8,6 +8,7 @@ disable=
     R1721, #unnecessary-comprehension
     R0902, #too-many-instance-attributes
     R0912, #too-many-branches
+    C0200, #consider-using-enumerate
 
 [pycodestyle]
 max-line-length=150

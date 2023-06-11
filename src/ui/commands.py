@@ -20,7 +20,9 @@ class Commands:
         initialize_centroids(): Initializes centroids for clusters.
         print_centroids(): Prints an array of centroid coordinates.
         run_k_means(): Runs the K-means algorithm.
-        print_clusters(): Prints an array that incocates which clusters each document belongs to. Columns are documents and values clusters.
+        print_clusters(): Prints an array that indicates which clusters each document belongs to. Columns are documents and values clusters.
+        print_document_information(): Prints some information of a specific document.
+        print_cluster(): Prints a list of documents belonging to a specific cluster.
         run_all(): Runs all the operations.
     '''
 

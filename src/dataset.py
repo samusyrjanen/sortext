@@ -20,7 +20,7 @@ class Dataset:
         initialize_centroids(number_of_centroids): Initializes the centroids for clusters.
         print_centroids(): Prints an array of centroid coordinates.
         run_k_means(max_iterations: int=5): Runs the K-means algorithm creating clusters.
-        print_clusters(): Prints the cluster array. Columns are documents and values clusters.
+        get_clusters(): Returns the clusters array.
     '''
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix, k_means):
@@ -58,14 +58,17 @@ class Dataset:
 
     def get_dataset(self):
         return self.dataset
-    
+
     def get_preprocessed_dataset(self):
         return self.preprocessed_dataset
 
     def create_term_document_matrix(self):
         if self.preprocessed_dataset is None:
             return False
-        self.matrix, self.document_names, self.unique_words, self.word_to_index = self.term_document_matrix.create_term_document_matrix(self.preprocessed_dataset)
+        self.matrix, \
+        self.document_names, \
+        self.unique_words, \
+        self.word_to_index = self.term_document_matrix.create_term_document_matrix(self.preprocessed_dataset)
         return True
 
     def print_matrix(self):
