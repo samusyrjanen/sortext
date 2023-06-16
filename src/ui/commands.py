@@ -23,6 +23,8 @@ class Commands:
         print_clusters(): Prints an array that indicates which clusters each document belongs to. Columns are documents and values clusters.
         print_document_information(): Prints some information of a specific document.
         print_cluster(): Prints a list of documents belonging to a specific cluster.
+        input_article(): Creates a .txt file of a user input.
+        clear_inputs(): Deletes all user inputs.
         run_all(): Runs all the operations.
     '''
 
@@ -63,11 +65,15 @@ class Commands:
 
     def print_text(self):
         dataset_texts = self.dataset.get_dataset()
+        user_inputs = self.dataset.get_user_inputs()
         if not dataset_texts:
             print('\nNo dataset, load a dataset first\n')
             return
         dataset_length = len(dataset_texts)
-        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+        dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                              f'plus {user_inputs} user inputs. The user inputs are located '
+                              f'last of all texts (highest indices).\n\n'
+                              f'Select an index (1-{dataset_length}): ')
         while True:
             try:
                 if 1 <= int(dataset_index) <= dataset_length:
@@ -76,15 +82,22 @@ class Commands:
             except:
                 pass
             print('Not found')
-            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+            dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                                  f'plus {user_inputs} user inputs. The user inputs are located '
+                                  f'last of all texts (highest indices).\n\n'
+                                  f'Select an index (1-{dataset_length}): ')
 
     def print_preprocessed_text(self):
         dataset_texts = self.dataset.get_preprocessed_dataset()
+        user_inputs = self.dataset.get_user_inputs()
         if not dataset_texts:
             print('\nNo dataset, preprocess a dataset first\n')
             return
         dataset_length = len(dataset_texts)
-        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+        dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                              f'plus {user_inputs} user inputs. The user inputs are located '
+                              f'last of all texts (highest indices).\n\n'
+                              f'Select an index (1-{dataset_length}): ')
         while True:
             try:
                 if 1 <= int(dataset_index) <= dataset_length:
@@ -93,7 +106,10 @@ class Commands:
             except:
                 pass
             print('Not found')
-            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+            dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                                  f'plus {user_inputs} user inputs. The user inputs are located '
+                                  f'last of all texts (highest indices).\n\n'
+                                  f'Select an index (1-{dataset_length}): ')
 
     def create_term_document_matrix(self):
         start_time = time.time()
@@ -197,6 +213,7 @@ class Commands:
 
     def print_document_information(self):
         dataset_texts = self.dataset.get_dataset()
+        user_inputs = self.dataset.get_user_inputs()
         if not dataset_texts:
             print('\nNo dataset, load a dataset first\n')
             return
@@ -209,7 +226,10 @@ class Commands:
             print('Error: Run K-means clustering first\n')
             return
         dataset_length = len(dataset_texts)
-        dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+        dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                              f'plus {user_inputs} user inputs. The user inputs are located '
+                              f'last of all texts (highest indices).\n\n'
+                              f'Select an index (1-{dataset_length}): ')
         while True:
             try:
                 if 1 <= int(dataset_index) <= dataset_length:
@@ -220,7 +240,10 @@ class Commands:
             except:
                 pass
             print('Not found')
-            dataset_index = input(f'\n\nThere are {dataset_length} texts in the dataset.\n\nSelect an index (1-{dataset_length}): ')
+            dataset_index = input(f'\n\nThere are {dataset_length-user_inputs} texts in the dataset, '
+                                  f'plus {user_inputs} user inputs. The user inputs are located '
+                                  f'last of all texts (highest indices).\n\n'
+                                  f'Select an index (1-{dataset_length}): ')
 
     def print_cluster(self):
         clusters = self.dataset.get_clusters()
@@ -243,6 +266,22 @@ class Commands:
                 pass
             print('Not found')
             cluster_index = input(f'\n\nGive cluster index (1-{number_of_clusters}): ')
+
+    def input_article(self):
+        print('\nEnter your article text below. Type "/end" on an empty line to finish:')
+        lines = []
+        while True:
+            line = input()
+            if line == '/end':
+                break
+            lines.append(line)
+        text = '\n'.join(lines)
+        self.dataset.input_article(text)
+        print('\nDone\n')
+
+    def clear_inputs(self):
+        self.dataset.clear_inputs()
+        print('Done\n')
 
     def run_all(self):
         self.read_dataset()

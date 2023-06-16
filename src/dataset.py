@@ -8,7 +8,7 @@ class Dataset:
     
     Methods:
         get_dataset_files(): Returns all available datasets in "datasets" directory.
-        read_dataset(file_name): Loads the selected (file_name) dataset. Returns False if not found.
+        read_dataset(file_name): Loads the selected (file_name) dataset and user inputs. Returns False if not found.
         preprocess(): Preprocesses the loaded dataset.
         get_dataset(): Returns the current dataset.
         create_term_document_matrix(): Creates a matrix in which the rows represent documents, and columns unique words.
@@ -21,9 +21,13 @@ class Dataset:
         print_centroids(): Prints an array of centroid coordinates.
         run_k_means(max_iterations: int=5): Runs the K-means algorithm creating clusters.
         get_clusters(): Returns the clusters array.
+        input_article(): Creates a .txt file of a user input.
+        clear_inputs(): Deletes all user inputs.
+        get_user_inputs(): Returns the number of user inputs.
     '''
 
     def __init__(self, dataset_reader, text_preprocessor, term_document_matrix, k_means):
+        self.user_inputs = 0
         self.dataset = None
         self.preprocessed_dataset = None
         self.matrix = None
@@ -48,6 +52,9 @@ class Dataset:
         if not self.dataset:
             self.dataset = None
             return False
+        user_input = self.dataset_reader.read_user_input()
+        self.user_inputs = len(user_input)
+        self.dataset += user_input
         return True
 
     def preprocess(self):
@@ -140,3 +147,12 @@ class Dataset:
 
     def get_clusters(self):
         return self.clusters
+
+    def input_article(self, text: str):
+        self.dataset_reader.input_article(text)
+
+    def clear_inputs(self):
+        self.dataset_reader.clear_inputs()
+
+    def get_user_inputs(self):
+        return self.user_inputs

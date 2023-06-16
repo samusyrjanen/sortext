@@ -43,4 +43,26 @@ class TestDatasetReader(unittest.TestCase):
         self.assertEqual(texts[0:1], correct)
         self.assertEqual(len(texts), 2224)
         self.assertEqual(not_found, False)
-   
+
+    def test_clear_inputs(self):
+        input_text1 = 'Meanwhile, the chancellor is leaving Britain on a high-profile tour of Africa to highlight poverty issues.'
+        self.dataset_reader.clear_inputs()
+        texts0 = self.dataset_reader.read_user_input()
+        self.dataset_reader.input_article(input_text1)
+        texts1 = self.dataset_reader.read_user_input()
+        self.dataset_reader.clear_inputs()
+        self.assertEqual(texts0, [])
+        self.assertEqual(texts1, ['Meanwhile, the chancellor is leaving Britain on a high-profile tour of Africa to highlight poverty issues.'])
+
+    def test_input_article(self):
+        input_text1 = 'Meanwhile, the chancellor is leaving Britain on a high-profile tour of Africa to highlight poverty issues.'
+        input_text2 = 'over the Iraq war. Mr Blair then changed his mind in June 2004, after Cabinet allies intervened and amid'
+        self.dataset_reader.clear_inputs()
+        self.dataset_reader.input_article(input_text1)
+        self.dataset_reader.input_article(input_text2)
+        returned_texts = self.dataset_reader.read_user_input()
+        self.dataset_reader.clear_inputs()
+        self.assertEqual(returned_texts, ['Meanwhile, the chancellor is leaving Britain on a high-profile '
+                                          'tour of Africa to highlight poverty issues.',
+                                          'over the Iraq war. Mr Blair then changed his mind in June 2004, '
+                                          'after Cabinet allies intervened and amid'])

@@ -8,6 +8,9 @@ class DatasetReader:
     Methods:
         get_database_files(): Returns a list of files in "datasets" directory.
         read_dataset(file: str): Reads and returns the selected dataset.
+        input_article(): Creates a .txt file of a user input.
+        clear_inputs(): Deletes all user inputs.
+        read_user_input(): Reads and returns the user input texts.
     '''
 
     def get_dataset_files(self):
@@ -45,4 +48,29 @@ class DatasetReader:
                             texts.append(text)
                         except UnicodeDecodeError:
                             print(f'Skipping file: {file_info.filename} - contains non-UTF-8 characters')
+        return texts
+
+    def input_article(self, text: str):
+        directory = os.listdir('user_input')
+        filename = f'input{len(directory)+1}.txt'
+        with open('user_input/'+filename, 'w', encoding='utf-8') as file:
+            file.write(text)
+
+    def clear_inputs(self):
+        for filename in os.listdir('user_input'):
+            file_path = os.path.join('user_input', filename)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+
+    def read_user_input(self):
+        texts = []
+        for filename in os.listdir('user_input'):
+            if filename.endswith('.txt'):
+                file_path = os.path.join('user_input', filename)
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as txt_file:
+                        text = txt_file.read()
+                        texts.append(text)
+                except UnicodeDecodeError:
+                    print(f'Skipping file: {filename} - contains non-UTF-8 characters')
         return texts
