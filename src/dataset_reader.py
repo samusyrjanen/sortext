@@ -58,13 +58,16 @@ class DatasetReader:
 
     def clear_inputs(self):
         for filename in os.listdir('user_input'):
-            file_path = os.path.join('user_input', filename)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
+            if filename.endswith('.txt'):
+                file_path = os.path.join('user_input', filename)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
 
     def read_user_input(self):
         texts = []
-        for filename in os.listdir('user_input'):
+        file_names = os.listdir('user_input')
+        file_names = sorted(file_names)
+        for filename in file_names:
             if filename.endswith('.txt'):
                 file_path = os.path.join('user_input', filename)
                 try:
