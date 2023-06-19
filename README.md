@@ -15,6 +15,7 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 [Week Report 3](docs/week_report_3.md)  
 [Week Report 4](docs/week_report_4.md)  
 [Week Report 5](docs/week_report_5.md)  
+[Week Report 6](docs/week_report_6.md)  
 
 ## Requirements
 

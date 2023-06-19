@@ -54,28 +54,34 @@ class TestTermDocumentMatrix(unittest.TestCase):
         rounded_tfidf_sum = "{:.11f}".format(tfidf_sum)
         self.assertEqual(float(rounded_tfidf_sum), correct)
 
-    def test_get_important_terms(self):
-        correct = 253
-        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
-        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
-        important_terms = self.term_document_matrix.get_important_terms(tfidf_matrix)
-        self.assertEqual(np.sum(important_terms), correct)
-
     def test_reduce_word_to_index(self):
         correct = 4
         matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
-        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
-        important_terms = self.term_document_matrix.get_important_terms(tfidf_matrix)
-        reduced_word_to_index = self.term_document_matrix.reduce_word_to_index(word_to_index, important_terms[:4])
+        important_terms = np.array([3,4,5,6])
+        reduced_word_to_index = self.term_document_matrix.reduce_word_to_index(word_to_index, important_terms)
         self.assertEqual(len(reduced_word_to_index), correct)
 
     def test_reduce_terms(self):
-        dict_len = 4
-        correct_matrix_sum = 2.2903804
+        dict_len = 3
+        correct_matrix_sum = 1.6169922
         matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
         tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
-        reduced_matrix, reduced_word_to_index = self.term_document_matrix.reduce_terms(tfidf_matrix, word_to_index, 4)
+        reduced_matrix, reduced_word_to_index = self.term_document_matrix.reduce_terms(tfidf_matrix, word_to_index, matrix, 3)
         matrix_sum = np.sum(reduced_matrix)
         rounded_matrix_sum = "{:.7f}".format(matrix_sum)
         self.assertEqual(len(reduced_word_to_index), dict_len)
         self.assertEqual(float(rounded_matrix_sum), correct_matrix_sum)
+
+    def test_get_highest_column_per_row(self):
+        correct = np.array([2,1,0])
+        array = np.array([[1, 2, 3],[4, 5, 6],[7, 8, 9]])
+        result = self.term_document_matrix.get_highest_column_per_row(array)
+        self.assertEqual(result.all(), correct.all())
+
+    def test_get_most_frequent_terms(self):
+        correct = 20
+        matrix, document_names, unique_words, word_to_index = self.term_document_matrix.create_term_document_matrix(self.dataset)
+        tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(matrix)
+        highest_column_per_row = self.term_document_matrix.get_highest_column_per_row(tfidf_matrix)
+        most_frequent_terms = self.term_document_matrix.get_most_frequent_terms(matrix, highest_column_per_row)
+        self.assertEqual(len(most_frequent_terms), correct)

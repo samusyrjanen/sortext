@@ -14,8 +14,10 @@ class TermDocumentMatrix:
         compute_idf(matrix: np.ndarray): Creates an array of the log of the number of documents divided by the number of documents that
         contain a specific word.
         create_tfidf_matrix(matrix: np.ndarray): Multiplies TF and IDF matrices into TF-IDF matrix, and normalizes it.
-        get_important_terms(matrix: np.ndarray): Calculates the importance of a term.
         reduce_word_to_index(word_to_index: dict, important_terms: np.ndarray): Modifies the 'word_to_index' dictionary retaining the important terms.
+        get_highest_column_per_row(matrix: np.ndarray): Returns an array of column indices that have the highest TF-IDF value in a given row.
+        get_most_frequent_terms(term_document_matrix: np.ndarray, highest_column_per_row: np.ndarray): Returns an array of indices of the most
+        frequent terms in the matrix.
         reduce_terms(matrix: np.ndarray, word_to_index: dict, max_terms: int=100): Creates a copy of the TF-IDF matrix with reduced columns, retaining
         only the most important terms.
     '''
@@ -94,18 +96,6 @@ class TermDocumentMatrix:
                 tfidf_matrix[row, column] /= magnitudes[row]
         return tfidf_matrix
 
-    def get_important_terms(self, matrix: np.ndarray):
-        '''
-        The importance of a term is calculated by summing up all the values in that column.
-
-        Returns:
-            sorted_indices (np.ndarray): An array of indices sorted by importance (most important at the beginning).
-        '''
-
-        term_importance = np.sum(matrix, axis=0)
-        sorted_indices = np.argsort(term_importance)[::-1]
-        return sorted_indices
-
     def reduce_word_to_index(self, word_to_index: dict, important_terms: np.ndarray):
         '''
         Modifies the 'word_to_index' dictionary retaining the important terms in the correct order.
@@ -123,14 +113,52 @@ class TermDocumentMatrix:
             index += 1
         return reduced_word_to_index
 
-    def reduce_terms(self, matrix: np.ndarray, word_to_index: dict, max_terms: int=100):
+    def get_highest_column_per_row(self, matrix: np.ndarray):
+        '''
+        Returns an array of column indices that have the highest TF-IDF value in a given row. No duplicates.
+        '''
+
+        copy_matrix = np.copy(matrix)
+        num_rows = copy_matrix.shape[0]
+        selected_cols = np.empty(num_rows, dtype=int)
+        selected_cols.fill(-1)
+        for i in range(num_rows):
+            row = copy_matrix[i]
+            max_col = np.argmax(row)
+
+            # Check if the selected column has already been chosen
+            while np.any(selected_cols == max_col):
+                row[max_col] = -1
+                max_col = np.argmax(row)
+
+            selected_cols[i] = max_col
+        return selected_cols
+
+    def get_most_frequent_terms(self, term_document_matrix: np.ndarray, highest_column_per_row: np.ndarray):
+        '''
+        Returns an array of indices of the most frequent terms in the matrix. Indices that are already in highest_column_per_row gets deleted.
+
+        Returns:
+            sorted_remaining_term_frequencies (np.ndarray): An array of term indices sorted by highest frequency.
+        '''
+
+        term_frequencies = np.sum(term_document_matrix, axis=0)
+        term_frequencies[highest_column_per_row] = -1
+
+        #Array of term indices sorted by highest frequency
+        sorted_term_frequencies = np.argsort(term_frequencies)[::-1]
+        sorted_remaining_term_frequencies = sorted_term_frequencies[:-len(highest_column_per_row)]
+
+        return sorted_remaining_term_frequencies
+
+    def reduce_terms(self, matrix: np.ndarray, word_to_index: dict, term_document_matrix: np.ndarray, max_terms: int):
         '''
         Creates a copy of the TF-IDF matrix with reduced columns, retaining only the most important terms.
         Also creates a copy of the 'word_to_index' to match the reduced matrix. The order of columns is retained.
 
         Args:
             matrix (np.ndarray): TF-IDF matrix.
-            word_to_index (dict): A dictionary that stores the labels (terms) of the columns in TF-IDF matrix.
+            word_to_index (dict): A dictionary that has words as keys and their matrix indices as values.
             max_terms (int): The wanted number of terms to be retained in the new reduced matrix.
 
         Returns:
@@ -138,14 +166,17 @@ class TermDocumentMatrix:
             reduced_word_to_index (dict): A modified copy of the 'word_to_index' that only has the wanted number of the most important terms.
         '''
 
-        important_terms = self.get_important_terms(matrix)
-        important_terms = important_terms[:max_terms]
-        sorted_important_terms = np.sort(important_terms)
-        reduced_matrix = matrix[:, sorted_important_terms].copy()
-        reduced_word_to_index = self.reduce_word_to_index(word_to_index, sorted_important_terms)
+        #Creates an array of the most important terms. values are indices and they are sorted by importance.
+        highest_column_per_row = self.get_highest_column_per_row(matrix)
+        most_frequent_terms = self.get_most_frequent_terms(term_document_matrix, highest_column_per_row)
+        important_terms = np.concatenate((highest_column_per_row, most_frequent_terms), axis=0)
 
-        # #Delete rows which have no non-zero values.
-        # zero_rows = np.all(reduced_matrix == 0, axis=1)
-        # reduced_matrix = reduced_matrix[~zero_rows]
+        #Selects the wanted number of terms
+        reduced_important_terms = important_terms[:max_terms]
 
+        #Sorts the selected terms by index to retain the original order of the matrix
+        sorted_reduced_important_terms = np.sort(reduced_important_terms)
+
+        reduced_matrix = matrix[:, sorted_reduced_important_terms].copy()
+        reduced_word_to_index = self.reduce_word_to_index(word_to_index, sorted_reduced_important_terms)
         return reduced_matrix, reduced_word_to_index

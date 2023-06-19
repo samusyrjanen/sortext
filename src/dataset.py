@@ -34,6 +34,7 @@ class Dataset:
         self.document_names = None
         self.unique_words = None
         self.word_to_index = None
+        self.tfidf_matrix = None
         self.reduced_matrix = None
         self.reduced_word_to_index = None
         self.centroid_coordinates = None
@@ -90,13 +91,16 @@ class Dataset:
     def create_tfidf_matrix(self):
         if self.matrix is None:
             return False
-        self.matrix = self.term_document_matrix.create_tfidf_matrix(self.matrix)
+        self.tfidf_matrix = self.term_document_matrix.create_tfidf_matrix(self.matrix)
         return True
 
     def reduce_terms(self, max_terms):
-        if self.matrix is None or max_terms >= len(self.unique_words):
+        if self.tfidf_matrix is None or max_terms >= len(self.unique_words) or max_terms < len(self.tfidf_matrix):
             return False
-        self.reduced_matrix, self.reduced_word_to_index = self.term_document_matrix.reduce_terms(self.matrix, self.word_to_index, max_terms)
+        self.reduced_matrix, self.reduced_word_to_index = self.term_document_matrix.reduce_terms(self.tfidf_matrix,
+                                                                                                 self.word_to_index,
+                                                                                                 self.matrix,
+                                                                                                 max_terms)
         return True
 
     def get_unique_words(self):
@@ -113,9 +117,9 @@ class Dataset:
 
     def initialize_centroids(self, number_of_centroids: int):
         if self.reduced_matrix is None:
-            if self.matrix is None or number_of_centroids > len(self.matrix):
+            if self.tfidf_matrix is None or number_of_centroids > len(self.tfidf_matrix):
                 return False
-            self.centroid_coordinates, self.distances = self.k_means.initialize_centroids(self.matrix, number_of_centroids)
+            self.centroid_coordinates, self.distances = self.k_means.initialize_centroids(self.tfidf_matrix, number_of_centroids)
             return True
         if number_of_centroids > len(self.reduced_matrix):
             return False
@@ -134,7 +138,7 @@ class Dataset:
         if self.centroid_coordinates is None:
             return False
         if self.reduced_matrix is None:
-            self.centroid_coordinates, self.clusters = self.k_means.run_k_means(self.matrix,
+            self.centroid_coordinates, self.clusters = self.k_means.run_k_means(self.tfidf_matrix,
                                                                                 self.centroid_coordinates,
                                                                                 self.distances,
                                                                                 max_iterations)

@@ -139,9 +139,11 @@ class Commands:
 
     def reduce_terms(self):
         unique_words = self.dataset.get_unique_words()
+        data = self.dataset.get_dataset()
         while True:
-            max_terms = input(f'\n\nThere are currently {len(unique_words)} unique terms (columns) in the matrix.'
-                              '\n\nSelect the number of terms to retain (lower is faster, but higher is more accurate): ')
+            max_terms = input(f'\n\nThere are currently {len(data)} documents, and {len(unique_words)-1} unique terms (columns) in the matrix.'
+                              f'\n\nSelect the number of terms to retain ({len(data)}-{len(unique_words)-1}) '
+                              '(lower is faster, but higher is more accurate): ')
             start_time = time.time()
             try:
                 max_terms = int(max_terms)
@@ -149,7 +151,8 @@ class Commands:
                 print('Give an integer')
                 continue
             if not self.dataset.reduce_terms(max_terms):
-                print('Error, ensure that you have loaded a TF-IDF matrix and the value is not higher than the number '
+                print('Error, ensure that you have loaded a TF-IDF matrix and the value is not lower '
+                      'that the number of documents (rows), or higher than the number '
                       'of unique terms (columns) in the matrix.')
                 continue
             break
