@@ -7,3 +7,6 @@ Today I modified the term reduction to to a more permanent solution from the pre
 - 2 h
 
 Wrote a peer review.
+
+### Working hours this week
+7 h
