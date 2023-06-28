@@ -1,3 +1,5 @@
+# Implementation Document
+
 ## Structure
 
 The startup and imports are done by app.py. After that the structure of the app follows the graph. Interface and commands are responsible for printing and getting the information to and from user. Dataset is the center of this app. It acts as a cache and sends requests to other files, which in turn do all the hard work and return the results back to dataset.

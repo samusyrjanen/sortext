@@ -1,6 +1,6 @@
 # Specification
 
-This is a text sorting app. The app takes one or multiple news articles as an input. Using the predetermined or user-given training data, it sorts those articles into similar groups.
+This is a text sorting app. The app uses a dataset of old bbc news articles, and takes additional news articles as an input. The news articles are converted into a matrix, which indicates the importance of each word in an article, and it sorts those articles into similar groups using k-means clustering algorithm. The resulting clusters contain similar texts, and they can be browsed.
 
 ## Languages
 

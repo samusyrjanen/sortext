@@ -2,10 +2,11 @@
 
 ![GHA workflow badge](https://github.com/samusyrjanen/sortext/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/samusyrjanen/sortext/branch/main/graph/badge.svg?token=TMTGIKOD27)](https://codecov.io/gh/samusyrjanen/sortext)
 
-This is a text sorting app. The app takes one or multiple news articles as an input. Using the predetermined or user-given training data, it sorts those articles into similar groups.
+This is a text sorting app. The app uses a dataset of old bbc news articles, and takes additional news articles as an input. The news articles are converted into a matrix, which indicates the importance of each word in an article, and it sorts those articles into similar groups using k-means clustering algorithm. The resulting clusters contain similar texts, and they can be browsed.
 
 ## Documents
 
+[Instructions](docs/instructions.md)  
 [Specification](docs/specification.md)  
 [Testing Document](docs/testing_document.md)  
 [Implementation Document](docs/implementation_document.md)  
@@ -30,7 +31,7 @@ This is a text sorting app. The app takes one or multiple news articles as an in
 
 ## Usage
 
-### Run  
+### Start  
 `poetry run invoke start`  
 
 ### Commands
